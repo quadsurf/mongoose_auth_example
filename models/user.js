@@ -6,28 +6,16 @@ var userSchema = new mongoose.Schema({
     email: {
       type: String,
       lowercase: true,
-      required: true,
-      index: {
-        unique: true
-      }
+      required: true
     },
     password: {
       type: String,
       required: true
     },
-    first_name: {
-      type: String,
-      default: ""
-    },
-    last_name: {
-      type: String,
-      default: ""
-    }
   });
 
 userSchema.pre('save', function(next) {
   var user = this;
-  // console.log(user.password)
   if (!user.isModified('password')) {
     return next();
   }
@@ -40,7 +28,6 @@ userSchema.pre('save', function(next) {
         return next(err);
       }
       user.password = hash;
-      console.log("THIS IS THE NEW HASH", hash)
       return next();
     });
   });
@@ -57,7 +44,6 @@ userSchema.statics.authenticate = function (params, cb) {
 
 userSchema.methods.checkPswrd = function(password, cb) {
   var user = this;
-  console.log(bcrypt.compareSync(password, this.password))
   bcrypt.compare(password, this.password, function (err, isMatch) {
     if (isMatch) {
       cb(null, user);
@@ -68,7 +54,5 @@ userSchema.methods.checkPswrd = function(password, cb) {
 };
 
 var User = mongoose.model("User", userSchema);
-
-
 
 module.exports = User;
