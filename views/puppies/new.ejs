@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+<h1>Add a new puppy</h1>
+<a href="/puppies">See all puppies</a>
+
+<form action="/puppies" method="POST">
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" class="form-control" name="puppy[name]" id="name" autofocus>
+  </div>
+  <div class="form-group">
+    <label for="url">Image URL: </label>
+    <input type="text" class="form-control" name="puppy[imageUrl]" id="url">
+  </div>
+  <input type="submit" value="Add" class="btn btn-lg btn-success">
+</form>
+<% include ../partials/footer %>

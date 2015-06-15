@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+<h1>See all the puppies!</h1>
+
+<a href="/puppies/new">Add a new puppy</a>
+
+<% puppies.forEach(function(puppy){ %>
+  <p><a href="/puppies/<%= puppy.id%>"><%= puppy.name%></a></p>
+  <p>
+    <img src="<%= puppy.imageUrl%>" alt="Dog Image" height=200 width=200>
+  </p>
+  <p>
+    <a href="/puppies/<%= puppy.id%>/edit">Edit a puppy</a>
+  </p>
+
+
+
+<% })%>
+
+<% include ../partials/footer %>
+<br>
+<a href="/logout">Logout</a>
