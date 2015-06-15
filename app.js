@@ -24,7 +24,7 @@ app.use(session({
 app.use(loginMiddleware);
 
 app.get('/', function(req,res){
-  res.render('index');
+  res.render('users/index');
 });
 
 app.get('/signup', routeMiddleware.preventLoginSignup ,function(req,res){
