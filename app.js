@@ -40,7 +40,7 @@ app.post("/signup", function (req, res) {
     } else {
       console.log(err);
       // TODO - handle errors in ejs!
-      res.render("/signup");
+      res.render("users/signup");
     }
   });
 });

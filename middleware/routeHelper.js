@@ -11,7 +11,7 @@ var routeHelpers = {
   },
 
   ensureCorrectUser: function(req, res, next) {
-    db.Puppy.findById(req.params.id,function(err,puppy){
+    db.Puppy.findById(req.params.id, function(err,puppy){
       if (puppy.ownerId !== req.session.id) {
         res.redirect('/puppies');
       }
