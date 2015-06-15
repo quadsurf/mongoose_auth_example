@@ -33,22 +33,23 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.statics.authenticate = function (params, cb) {
+// don't want to call this first param "user"! We have another user defined!
+userSchema.statics.authenticate = function (formData, callback) {
   this.findOne({
-      email: params.email
+      email: formData.email
     },
     function (err, user) {
-      user.checkPswrd(params.password, cb);
+      user.checkPswrd(formData.password, callback);
     });
 };
 
-userSchema.methods.checkPswrd = function(password, cb) {
+userSchema.methods.checkPswrd = function(password, callback) {
   var user = this;
   bcrypt.compare(password, this.password, function (err, isMatch) {
     if (isMatch) {
-      cb(null, user);
+      callback(null, user);
     } else {
-      cb(err, null);
+      callback(err, null);
     }
   });
 };
