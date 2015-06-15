@@ -39,7 +39,8 @@ app.post("/signup", function (req, res) {
       res.redirect("/puppies");
     } else {
       console.log(err);
-      res.redirect("/signup");
+      // TODO - handle errors in ejs!
+      res.render("users/signup");
     }
   });
 });
@@ -52,11 +53,12 @@ app.get("/login", routeMiddleware.preventLoginSignup, function (req, res) {
 app.post("/login", function (req, res) {
   db.User.authenticate(req.body.user,
   function (err, user) {
-    if (!err) {
+    if (!err && user !== null) {
       req.login(user);
       res.redirect("/puppies");
     } else {
-      res.redirect("/login");
+      // TODO - handle errors in ejs!
+      res.render("users/login");
     }
   });
 });

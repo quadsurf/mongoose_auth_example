@@ -39,11 +39,18 @@ userSchema.statics.authenticate = function (formData, callback) {
       email: formData.email
     },
     function (err, user) {
-      user.checkPswrd(formData.password, callback);
+      console.log(user)
+      if (user === null){
+        callback("Invalid username or password",null);
+      }
+      else {
+        user.checkPassword(formData.password, callback);
+      }
+
     });
 };
 
-userSchema.methods.checkPswrd = function(password, callback) {
+userSchema.methods.checkPassword = function(password, callback) {
   var user = this;
   bcrypt.compare(password, this.password, function (err, isMatch) {
     if (isMatch) {
