@@ -81,7 +81,7 @@ app.get('/puppies/new', function(req,res){
   res.render("puppies/new");
 });
 
-app.get('/puppies/:id', routeMiddleware.ensureLoggedIn, function(req,res){
+app.get('/puppies/:id/', routeMiddleware.ensureLoggedIn, function(req,res){
   db.Puppy.findById(req.params.id, function(err,puppy){
     res.render("puppies/show", {puppy:puppy});
   });
