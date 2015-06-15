@@ -23,7 +23,7 @@ app.use(session({
 // use loginMiddleware everywhere!
 app.use(loginMiddleware);
 
-app.get('/', function(req,res){
+app.get('/', routeMiddleware.preventLoginSignup, function(req,res){
   res.render('users/index');
 });
 
