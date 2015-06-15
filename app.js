@@ -23,7 +23,7 @@ app.use(session({
 // use loginMiddleware everywhere!
 app.use(loginMiddleware);
 
-app.get('/', routeMiddleware.preventLoginSignup, function(req,res){
+app.get('/', routeMiddleware.ensureLoggedIn, function(req,res){
   res.render('users/index');
 });
 
@@ -40,7 +40,7 @@ app.post("/signup", function (req, res) {
     } else {
       console.log(err);
       // TODO - handle errors in ejs!
-      res.render("users/signup");
+      res.render("/signup");
     }
   });
 });

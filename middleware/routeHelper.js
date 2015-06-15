@@ -2,7 +2,7 @@ var db = require("../models");
 
 var routeHelpers = {
   ensureLoggedIn: function(req, res, next) {
-    if (req.session.id !== null) {
+    if (req.session.id !== null && req.session.id !== undefined) {
       return next();
     }
     else {
@@ -11,7 +11,6 @@ var routeHelpers = {
   },
 
   ensureCorrectUser: function(req, res, next) {
-
     db.Puppy.findById(req.params.id,function(err,puppy){
       if (puppy.ownerId !== req.session.id) {
         res.redirect('/puppies');
@@ -23,7 +22,7 @@ var routeHelpers = {
   },
 
   preventLoginSignup: function(req, res, next) {
-    if (req.session.id !== null) {
+    if (req.session.id !== null && req.session.id !== undefined) {
       res.redirect('/puppies');
     }
     else {
