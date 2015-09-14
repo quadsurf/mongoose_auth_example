@@ -1,12 +1,12 @@
-var express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    db = require("./models"),
-    methodOverride = require("method-override"),
-    session = require("cookie-session"),
-    morgan = require("morgan"),
-    loginMiddleware = require("./middleware/loginHelper");
-    routeMiddleware = require("./middleware/routeHelper");
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var db = require("./models");
+var methodOverride = require("method-override");
+var session = require("cookie-session");
+var morgan = require("morgan");
+var loginMiddleware = require("./middleware/loginHelper");
+var routeMiddleware = require("./middleware/routeHelper");
 
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
@@ -64,9 +64,9 @@ app.post("/login", function (req, res) {
 });
 
 app.get('/puppies', routeMiddleware.ensureLoggedIn, function(req,res){
-    db.Puppy.find({}, function(err,puppies){
-      res.render("puppies/index", {puppies: puppies});
-    });
+  db.Puppy.find({}, function(err,puppies){
+    res.render("puppies/index", {puppies: puppies});
+  });
 });
 
 app.post('/puppies', routeMiddleware.ensureLoggedIn, function(req,res){

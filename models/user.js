@@ -3,19 +3,18 @@ var SALT_WORK_FACTOR = 10;
 var mongoose = require("mongoose");
 
 var userSchema = new mongoose.Schema({
-    email: {
-      type: String,
-      lowercase: true,
-      required: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
-  });
+  email: {
+    type: String,
+    lowercase: true,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+});
 
 userSchema.pre('save', function(next) {
-
   // the keyword this refers to the INSTANCE!
   // {
   //   email: "eschoppik@gmail.com",
@@ -80,21 +79,20 @@ userSchema.pre('save', function(next) {
 userSchema.statics.authenticate = function (formData, callback) {
   // this refers to the model!
   this.findOne({
-      email: formData.email
-    },
-    function (err, user) {
-      if (user === null){
-        callback("Invalid username or password",null);
-      }
-      else {
-        user.checkPassword(formData.password, callback);
-      }
-
-    });
+    email: formData.email
+  },
+  function (err, user) {
+    if (user === null){
+      callback("Invalid username or password",null);
+    }
+    else {
+      user.checkPassword(formData.password, callback);
+    }
+  });
 };
 
 // in my app.js, when a user tries to log in
-  // submitting the "login" form...this will happen:
+// submitting the "login" form...this will happen:
 // db.User.authenticate(req.body.user, function(err,user){
 
 // })
