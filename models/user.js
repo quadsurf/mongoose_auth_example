@@ -37,18 +37,18 @@ userSchema.pre('save', function(next) {
   // user.save(function(err,user){
 
   // })
-  return bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
     if (err) {
       return next(err);
     }
-    return bcrypt.hash(user.password, salt, function(err, hash) {
+    bcrypt.hash(user.password, salt, function(err, hash) {
       if (err) {
         return next(err);
       }
       // define what the password is for the user
       user.password = hash;
       // everything looks good, let's save this!
-      return next();
+      next();
     });
   });
 });
